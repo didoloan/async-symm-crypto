@@ -4,13 +4,21 @@ A crate that wraps around openssl providing very convenient async interfaces to 
 
 
 [![Crates.io][crates-badge]][crates-url]
+[![Crates.io][crates-badge]][crates-url]
+[![Docs][docs-badge]][docs-url]
+[![Build][actions-badge]][actions-url]
 [![MIT licensed][mit-badge]][mit-url]
 
+[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.0-f58142
 [crates-url]: https://crates.io/crates/async_symm_crypto
+[actions-badge]: https://github.com/didoloan/async-symm-crypto/workflows/CI/badge.svg
+[actions-url]: https://github.com/didoloan/async-symm-crypto/actions?query=workflow%3ACI+branch%3Amaster
+[docs-badge]: https://img.shields.io/badge/docs-passing-cc61e
+[docs-url]: https://docs.rs/async_symm_crypto/0.1.0/async_symm_crypto/
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [mit-url]: https://github.com/didoloan/async_symm_crypto/blob/master/LICENSE
 
-[Website](https://github.com/didoloan/async_symm_crypto/blob/master/README.md) |
+[Website](https://github.com/didoloan/async-symm-crypto/blob/master/README.md) |
 [API Docs](https://docs.rs/async_symm_crypto/latest)
 
 
