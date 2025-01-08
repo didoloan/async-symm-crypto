@@ -1,6 +1,6 @@
 [package]
 name = "async_symm_crypto"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "An async openssl symmetric cryptography."
 repository = "https://github.com/didoloan/async-symm-crypto.git"

@@ -9,7 +9,7 @@ A crate that wraps around openssl providing very convenient async interfaces to 
 [![Build][actions-badge]][actions-url]
 [![MIT licensed][mit-badge]][mit-url]
 
-[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.0-f58142
+[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.1-f58142
 [crates-url]: https://crates.io/crates/async_symm_crypto
 [actions-badge]: https://github.com/didoloan/async-symm-crypto/workflows/CI/badge.svg
 [actions-url]: https://github.com/didoloan/async-symm-crypto/actions?query=workflow%3ACI+branch%3Amaster
@@ -30,7 +30,7 @@ Make sure openssl is installed on the operating
 
 ```toml
 [dependencies]
-async_symm_crypto = "0.1.0"
+async_symm_crypto = "0.1.1"
 ```
 Then, on your main.rs:
 
