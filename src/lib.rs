@@ -1,11 +1,6 @@
-// mod async_decrypt_task;
-// mod async_encrypt_task;
 mod async_stream_dec_task;
 mod async_stream_enc_task;
-
 use std::ops::Deref;
-// use async_decrypt_task::AsyncDecryptTask;
-// use async_encrypt_task::AsyncEncryptTask;
 use async_stream_dec_task::AsyncStreamDecryptTask;
 use async_stream_enc_task::AsyncStreamEncryptTask;
 use bytes::Bytes;
@@ -19,8 +14,6 @@ pub mod re_exports {
 
 pub mod prelude {
     pub use crate::AsyncEncryption;
-    // pub use crate::AsyncStreamEncryptTask;
-    // pub use crate::AsyncStreamDecryptTask;
 }
 
 pub struct AsyncEncryption<'a> {
