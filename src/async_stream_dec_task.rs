@@ -4,9 +4,6 @@ use std::task::Poll;
 
 pub struct AsyncStreamDecryptTask<'a> {
     stream_ref: BoxStream<'a, Result<bytes::Bytes, Box<dyn std::error::Error>>>,
-    buffer: Vec<u8>,
-    cur_index: usize,
-    bytes_pushed: usize,
     blk_size: usize,
     dec: Crypter,
     eos: bool,
@@ -21,9 +18,6 @@ impl<'a> AsyncStreamDecryptTask<'a> {
     ) -> Self {
         Self {
             stream_ref: stream_ref.boxed(),
-            buffer: Vec::with_capacity(128),
-            cur_index: 0,
-            bytes_pushed: 0,
             blk_size: cipher.block_size(),
             dec: openssl::symm::Crypter::new(cipher, openssl::symm::Mode::Decrypt, key, iv)
                 .unwrap(),
@@ -49,10 +43,6 @@ impl futures::Stream for AsyncStreamDecryptTask<'_> {
                         return Poll::Ready(Some(Err(Err(err)?)));
                     }
                 };
-
-                self.bytes_pushed += count;
-                self.cur_index += piece.len();
-                // cx.waker().wake_by_ref();
                 Poll::Ready(Some(Ok(bytes::Bytes::copy_from_slice(&temp_buf[..count]))))
             }
             Poll::Ready(Some(Err(err))) => Poll::Ready(Some(Err(err))),
@@ -60,13 +50,9 @@ impl futures::Stream for AsyncStreamDecryptTask<'_> {
                 if self.eos {
                     return Poll::Ready(None);
                 }
-                let bytes_sofar = self.bytes_pushed;
                 let mut last_buffer = vec![0; self.blk_size * 2];
                 match self.dec.finalize(&mut last_buffer) {
                     Ok(last_bytes_size) => {
-                        self.buffer
-                            .extend_from_slice(&last_buffer[..last_bytes_size]);
-                        self.buffer.truncate(bytes_sofar + last_bytes_size);
                         self.eos = true;
                         Poll::Ready(Some(Ok(bytes::Bytes::copy_from_slice(
                             &last_buffer[..last_bytes_size],
@@ -78,7 +64,6 @@ impl futures::Stream for AsyncStreamDecryptTask<'_> {
                 }
             }
             Poll::Pending => {
-                // cx.waker().wake_by_ref();
                 Poll::Pending
             }
         }
