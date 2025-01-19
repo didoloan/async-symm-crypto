@@ -76,7 +76,9 @@ mod encryption_tests {
             Some(b"bcff0511"),
         );
 
-        let mut enc_stream = crypto.encrypt_stream(get_text_byte_stream());
+        let mut bytes_stream = get_text_byte_stream();
+
+        let mut enc_stream = crypto.encrypt_stream(&mut bytes_stream).unwrap();
 
         let mut enc_bytes = Vec::new();
 
@@ -97,9 +99,9 @@ mod encryption_tests {
 
         let encrypted_bytes = openssl::base64::decode_block(ENCRYPTED_BASE64).unwrap();
 
-        let enc_bytes_stream = get_encrypted_byte_stream(&encrypted_bytes);
+        let mut enc_bytes_stream = get_encrypted_byte_stream(&encrypted_bytes);
 
-        let mut dec_stream = crypto.decrypt_stream(enc_bytes_stream);
+        let mut dec_stream = crypto.decrypt_stream(&mut enc_bytes_stream).unwrap();
 
         let mut dec_bytes = Vec::new();
 
